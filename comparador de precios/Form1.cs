@@ -36,35 +36,58 @@ namespace comparador_de_precios
         {
             bodySEO = "";
             pageBody = "";
-            //await WebRequestSEO(@"https://google.com/search?q=", thing, "%20", "&sclient=products-cc&udm=28");
-            listBox1.Items.Clear();
-            await WebRequestSEO(@"https://google.com/search?q=", thing + "Mercado Libre", "%20", "&sclient=products-cc&udm=28");
+            await WebRequestSEO(@"https://google.com/search?q=", thing, "%20", "&sclient=products-cc&udm=28");
+            //showProducts(bodySEO);
+            //listBox1.Items.Clear();
+            await WebRequestSEO(@"https://google.com/search?q=", thing, "%20", "&sclient=products-cc&udm=28&start=20");
+            //showProducts(bodySEO);
+            await WebRequestSEO(@"https://google.com/search?q=", "Mercado Libre" + thing, "%20", "&sclient=products-cc&udm=28&shoprs=CAEYAioLbWVtb3JpYSByYW0yEQgCEg1NZXJjYWRvIExpYnJlWLexIGAB");
             showProducts(bodySEO, "Mercado Libre");
-            await WebRequestSEO(@"https://google.com/search?q=", thing + "Cyberpuerta", "%20", "&sclient=products-cc&udm=28");
+            await WebRequestSEO(@"https://google.com/search?q=", "mercado libre" + thing, "%20", "&sclient=products-cc&udm=28&&shoprs=CAEYAioLbWVtb3JpYSByYW0yEQgCEg1NZXJjYWRvIExpYnJlWLexIGABstart=20");
+            showProducts(bodySEO, "Mercado Libre");
+            await WebRequestSEO(@"https://google.com/search?q=", "mercado libre" + thing, "%20", "&sclient=products-cc&udm=28&&shoprs=CAEYAioLbWVtb3JpYSByYW0yEQgCEg1NZXJjYWRvIExpYnJlWLexIGABstart=40");
+            showProducts(bodySEO, "Mercado Libre");
+            //await WebRequestSEO(@"https://google.com/search?q=", thing + "Mercado Libre", "%20", "&sclient=products-cc&udm=28&start=40");
+            //showProducts(bodySEO, "Mercado Libre");
+            //await WebRequestSEO(@"https://google.com/search?q=", thing + "Mercado Libre", "%20", "&sclient=products-cc&udm=28&start=60");
+            //showProducts(bodySEO, "Mercado Libre");
+            //showMercadoLibre(bodySEO);
+            await WebRequestSEO(@"https://google.com/search?q=", "cyberpuerta" + thing, "%20", "&sclient=products-cc&udm=28&shoprs=CAEYCioXY3liZXJwdWVydGEgbWVtb3JpYSByYW0yBwgKEgNTw61Yt7EgYAI");
             showProducts(bodySEO, "Cyberpuerta");
-            await WebRequestSEO(@"https://google.com/search?q=", thing + "Walmart", "%20", "&sclient=products-cc&udm=28");
+            await WebRequestSEO(@"https://google.com/search?q=", "cyberpuerta" + thing, "%20", "&sclient=products-cc&udm=28&start=20&shoprs=CAEYCioXY3liZXJwdWVydGEgbWVtb3JpYSByYW0yBwgKEgNTw61Yt7EgYAI");
+            showProducts(bodySEO, "Cyberpuerta");
+            //await WebRequestSEO(@"https://google.com/search?q=", "Cyberpuerta" + thing, "%20", "&sclient=products-cc&udm=28&start=40");
+            //showProducts(bodySEO, "Cyberpuerta");
+            await WebRequestSEO(@"https://google.com/search?q=", thing + "Walmart", "%20", "&sclient=products-cc&udm=28&&sxsrf=ADLYWILdKSu0bgpFFriB6TnSqeAa5NW5iQ%3A1730825593696&ei=eU0qZ4OkKp7KkPIP8b_J4Aw&ved=0ahUKEwjDxLjl08WJAxUeJUQIHfFfEswQ4dUDCBA&uact=5&oq=walmart+memoria+ram&gs_lp=Ehlnd3Mtd2l6LW1vZGVsZXNzLXNob3BwaW5nIhN3YWxtYXJ0IG1lbW9yaWEgcmFtSJeSAVC3cljIkAFwBngBkAEAmAHHA6AB0A-qAQkxLjguMi4wLjG4AQPIAQD4AQGYAgKgAg7CAgoQABiwAxjWBBhHmAMAiAYBkAYIkgcBMqAHmhs");
             showProducts(bodySEO, "Walmart");
             //showMercadoLibre(bodySEO);
 
-            string price = PriceList.Items[0].ToString().Replace(",", "");
-            price = price.Substring(4);
-            double bestPrice = double.Parse(price);
-            int bestIndex = 0;
-            for (int i = 1; i < PriceList.Items.Count; i++)
+            if (PriceList.Items.Count > 0)
             {
-                price = PriceList.Items[i].ToString().Replace(",", "");
-                price = price.Substring(4);
-                double dPrice = double.Parse(price);
-                if (bestPrice > dPrice)
-                {
-                    bestIndex = i;
-                    bestPrice = dPrice;
-                }
-            }
 
-            listBox1.Items.Add(NameList.Items[bestIndex]);
-            listBox1.Items.Add(PriceList.Items[bestIndex]);
-            listBox1.Items.Add(SellerList.Items[bestIndex]);
+                string price = PriceList.Items[0].ToString().Replace(",", "");
+                price = price.Substring(4);
+                double bestPrice = double.Parse(price);
+                int bestIndex = 0;
+                for (int i = 1; i < PriceList.Items.Count; i++)
+                {
+                    price = PriceList.Items[i].ToString().Replace(",", "");
+                    price = price.Substring(4);
+                    double dPrice = double.Parse(price);
+                    if (bestPrice > dPrice)
+                    {
+                        bestIndex = i;
+                        bestPrice = dPrice;
+                    }
+                }
+
+                listBox1.Items.Add(NameList.Items[bestIndex]);
+                listBox1.Items.Add(PriceList.Items[bestIndex]);
+                listBox1.Items.Add(SellerList.Items[bestIndex]);
+            } else
+            {
+                MessageBox.Show("Producto no encontrado");
+            }
             doingQuery = false;
         }
 
@@ -100,6 +123,7 @@ namespace comparador_de_precios
 
         async Task WebRequest(string url)
         {
+            pageBody = "";
             // Call asynchronous network methods in a try/catch block to handle exceptions.
             Console.WriteLine(url);
             try
@@ -116,6 +140,7 @@ namespace comparador_de_precios
                 //Console.WriteLine("\nException Caught!");
                 //Console.WriteLine("Message :{0} ", e.Message);
                 //MessageBox.Show("Page not found", "Alert");
+                pageBody = "";
                 return;
             }
             Console.WriteLine("Finish" + url);
@@ -154,6 +179,16 @@ namespace comparador_de_precios
                 int endSeller = responseBody.IndexOf("<", startSeller);
 
                 string seller = responseBody.Substring(startSeller, endSeller - startSeller);
+
+                if (seller.IndexOf("Mercado") != -1 ||
+                    seller.IndexOf("Cyber") != -1 ||
+                    seller.IndexOf("Walmaer") != -1)
+                {
+                    continue;
+                }
+
+
+
 
                 Console.WriteLine("{0}\r\n{1}\r\n{2}", seller, name, price);
 
@@ -207,15 +242,29 @@ namespace comparador_de_precios
             }
         }
         async void showMercadoLibre(string responseBody)
-        {            
-            for (int start = bodySEO.IndexOf(@"https://articulo.mercadolibre.com.mx/"); start != -1; start = bodySEO.IndexOf(@"https://articulo.mercadolibre.com.mx/", start + 1))
-            {
-                int startURL = start;
-                int endURL = bodySEO.IndexOf(@"%3", start + 1);
+        {
+            int c = 0;
+            MessageBox.Show(responseBody);
+            //MessageBox.Show("Bero");
 
-                string url = bodySEO.Substring(startURL, endURL - startURL);
+            textBox2.Text = responseBody;
+
+            for (int start = responseBody.IndexOf(@"mercadolibre.com.mx"); start != -1; start = responseBody.IndexOf(@"mercadolibre.com.mx", start + 1))
+            {
+                int startURL = responseBody.LastIndexOf("https://", start);
+                //if (startURL + 10 < start) continue;
+                int endURL = responseBody.IndexOf(@"%3", start);
+
+                string url = responseBody.Substring(startURL, endURL - startURL);
 
                 await WebRequest(url);
+                //MessageBox.Show(url);
+
+                if (pageBody == "")
+                {
+                    MessageBox.Show("NOT FOUND");
+                    continue;
+                }
 
                 //Name
                 int nameStart = pageBody.IndexOf("ui-pdp-title");
@@ -225,19 +274,21 @@ namespace comparador_de_precios
                 string name = pageBody.Substring(nameStart, nameEnd - nameStart);
 
                 //Price
-                int priceStart = pageBody.IndexOf("itemprop=price");
+                int priceStart = pageBody.IndexOf("itemprop=\"price");
                 if (priceStart == -1) continue;
                 int priceEnd = pageBody.IndexOf("\">", priceStart);
                 priceStart = pageBody.LastIndexOf("\"", priceEnd);
 
                 string price = pageBody.Substring(priceStart, priceEnd - priceStart);
 
+                //MessageBox.Show("HEre");
+                //MessageBox.Show(name + "\r\n" + price + "\r\n");
+
                 NameList.Items.Add(name);
                 PriceList.Items.Add(price);
                 SellerList.Items.Add(" en Mercado Libre");
-
-                
             }
+            //MessageBox.Show("Tjer");
         }
 
         private void label1_Click(object sender, EventArgs e)
